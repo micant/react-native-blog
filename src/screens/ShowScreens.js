@@ -5,10 +5,10 @@ import { Feather } from '@expo/vector-icons';
 
 const ShowScreen = ({ navigation }) => {
     const { state } = useContext(Context);
-    
+
     const blogPost = state.find((blogPost) => blogPost.id === navigation.getParam('id'));
 
-    return ( 
+    return (
         <View>
             <Text>{blogPost.title}</Text>
             <Text>{blogPost.content}</Text>
@@ -19,9 +19,13 @@ const ShowScreen = ({ navigation }) => {
 ShowScreen.navigationOptions = ({ navigation }) => {
     return {
         headerRight: (() =>
-            <TouchableOpacity  onPress={() => navigation.navigate('Edit')}>
-                <Feather name="edit" style={{marginRight: 15}} size={25} />
-            </TouchableOpacity>    
+            <TouchableOpacity 
+                onPress={() => 
+                    navigation.navigate('Edit', { id: navigation.getParam('id') })
+                }
+            >
+                <Feather name="edit" style={{ marginRight: 15 }} size={25} />
+            </TouchableOpacity>
         )
     };
 }
