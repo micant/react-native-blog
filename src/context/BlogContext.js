@@ -1,5 +1,6 @@
 import createDataContext from './createDataContext';
 
+// Reducer => handle hooks 
 const blogReducer = (state, action) => {
     switch (action.type) {
         case 'add_blogpost':
@@ -17,6 +18,7 @@ const blogReducer = (state, action) => {
             return state;
     }
 };
+
 // Dispatch functions to invoke state change
 const addBlogPost = (dispatch) => {
     return (title, content, callback) => {
@@ -32,13 +34,16 @@ const deleteBlogPost = (dispatch) => {
 };
 
 const editBlogPost = (dispatch) => {
-    return (title, content) => {
-        dispatch({ type: 'edit_blogpost', payload: {title, content } });
+    return (id, title, content) => {
+        dispatch({
+            type: 'edit_blogpost',
+            payload: { id, title, content }
+        })
     }
-}
+};
 
 export const { Context, Provider } = createDataContext(
     blogReducer,
-    { addBlogPost, deleteBlogPost },
-    [{ title: 'TEST POST', content: "TEST CONTENT", id: 1}]
+    { addBlogPost, deleteBlogPost, editBlogPost },
+    [{ title: 'TEST POST', content: "TEST CONTENT", id: 1 }]
 );
